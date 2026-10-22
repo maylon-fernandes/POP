@@ -1502,7 +1502,7 @@ fieldset {
 .editor-content hr {
   margin: 2em 0;
   border: 0;
-  border-top: 1px solid var(--border-strong);
+  border-top: 1px solid #20c997;
 }
 
 .doc-content img,
@@ -1584,6 +1584,49 @@ fieldset {
   color: var(--text-tertiary);
   font-size: 12px;
   text-align: center;
+}
+
+/* Imagens isoladas (Markdown) */
+.doc-content p:has(> img.doc-image:only-child),
+.editor-content p:has(> img.doc-image:only-child) {
+  position: relative;
+  display: flex;
+  width: fit-content;
+  max-width: 100%;
+  margin: 2em auto;
+  padding: 8px;
+  border: 1px solid #20c997;
+  border-radius: 14px;
+  line-height: 0;
+}
+
+.doc-content p:has(> img.doc-image:only-child)::before,
+.editor-content p:has(> img.doc-image:only-child)::before {
+  content: "REFERÊNCIA";
+  position: absolute;
+  top: 0;
+  left: 16px;
+  transform: translateY(-50%);
+  padding: 3px 12px;
+  color: #20c997;
+  background: var(--bg);
+  border: 1px solid #20c997;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.7;
+  letter-spacing: 0.05em;
+}
+
+.editor-content p:has(> img.doc-image:only-child)::before {
+  background: var(--surface);
+}
+
+.doc-content p:has(> img.doc-image:only-child) > img,
+.editor-content p:has(> img.doc-image:only-child) > img {
+  margin: 0;
+  border-radius: 8px;
+  box-shadow: none;
 }
 
 .doc-content mark,
@@ -2232,6 +2275,11 @@ fieldset {
   .doc-content,
   .editor-content {
     color: #212529;
+  }
+
+  .doc-content p:has(> img.doc-image:only-child)::before,
+  .editor-content p:has(> img.doc-image:only-child)::before {
+    background: #fff;
   }
 
   .sidebar,

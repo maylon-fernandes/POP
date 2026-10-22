@@ -758,7 +758,22 @@
       if (!inserted) {
         const template = document.createElement("template");
         template.innerHTML = html;
-        this.contentEl.appendChild(template.content);
+        const selection = window.getSelection();
+        const range = selection && selection.rangeCount ? selection.getRangeAt(0) : null;
+        if (range && this.contentEl.contains(range.commonAncestorContainer)) {
+          range.deleteContents();
+          const fragment = template.content;
+          const lastNode = fragment.lastChild;
+          range.insertNode(fragment);
+          if (lastNode) {
+            range.setStartAfter(lastNode);
+            range.collapse(true);
+            selection.removeAllRanges();
+            selection.addRange(range);
+          }
+        } else {
+          this.contentEl.appendChild(template.content);
+        }
       }
       this.maintainTaskLists();
     }
@@ -917,7 +932,8 @@
     }
 
     openImageDialog() {
-      this.imageDialogRange = this.captureRange();
+      this.imageDialogRange = this.savedRange || this.captureRange();
+      this.savedRange = null;
       this.imageDialogUrl.value = "";
       this.imageDialogError.hidden = true;
       this.imageDialogError.textContent = "";
@@ -925,7 +941,7 @@
       window.setTimeout(() => this.imageDialogUrl.focus(), 40);
     }
 
-    handleImageDialogSubmit(event) {
+    async handleImageDialogSubmit(event) {
       if (event.submitter && event.submitter.value === "cancel") {
         return;
       }
@@ -937,9 +953,12 @@
         this.imageDialogError.hidden = false;
         return;
       }
-      ui.closeDialog("image-dialog");
-      this.savedRange = this.imageDialogRange;
+      const range = this.imageDialogRange;
       this.imageDialogRange = null;
+      ui.closeDialog("image-dialog");
+      await utils.nextFrame();
+      if (this.destroyed) return;
+      this.savedRange = range;
       this.insertExternalImage(url);
     }
 
@@ -973,13 +992,15 @@
         const record = await images.addFile(file);
         const url = await images.getUrl(record.id);
         if (!url) throw new Error("Não foi possível carregar a imagem.");
+        this.imageDialogRange = null;
+        ui.closeDialog("image-dialog");
+        await utils.nextFrame();
+        if (this.destroyed) return;
         this.savedRange = range;
         const alt = String(file.name || "Imagem").replace(/\.[^.]+$/, "");
         this.insertHtml(
           `<img data-image-id="${utils.escapeAttr(record.id)}" class="doc-image" src="${utils.escapeAttr(url)}" alt="${utils.escapeAttr(alt)}"><p><br></p>`
         );
-        this.imageDialogRange = null;
-        ui.closeDialog("image-dialog");
         this.markDirty();
         this.scrollToLastImage();
         ui.toast("Imagem inserida e armazenada localmente.", "success");

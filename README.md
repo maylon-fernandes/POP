@@ -1,4 +1,4 @@
-# IT Docs
+# Lingo
 
 Aplicação web para criar, organizar e consultar Procedimentos Operacionais Padrão (POPs) de TI. Funciona inteiramente no navegador, sem servidor ou banco de dados externo. As animações usam o GSAP e a rolagem suave usa o Lenis, ambos carregados localmente.
 
@@ -55,7 +55,7 @@ O arquivo exportado segue este envelope:
 
 ```json
 {
-  "app": "IT Docs",
+  "app": "Lingo",
   "schemaVersion": 1,
   "exportedAt": "2026-01-01T12:00:00.000Z",
   "scope": "all",

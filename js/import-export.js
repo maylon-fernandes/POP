@@ -9,6 +9,8 @@
   const ui = NS.ui;
 
   const SCHEMA_VERSION = 1;
+  const APP_NAME = "Lingo";
+  const LEGACY_APP_NAMES = new Set(["IT Docs"]);
   const MAX_IMPORT_BYTES = 64 * 1024 * 1024;
   const MAX_IMPORT_ITEMS = 5000;
 
@@ -17,7 +19,7 @@
 
   function envelope(procedures, scope) {
     return {
-      app: "IT Docs",
+      app: APP_NAME,
       schemaVersion: SCHEMA_VERSION,
       exportedAt: new Date().toISOString(),
       scope: scope || "all",
@@ -50,7 +52,7 @@
       exported.push(await buildExportProcedure(procedure));
     }
     const data = envelope(exported, "all");
-    const filename = `it-docs-procedimentos-${utils.fileStamp()}.json`;
+    const filename = `lingo-procedimentos-${utils.fileStamp()}.json`;
     utils.downloadJson(data, filename);
     ui.toast(`${utils.formatCount(exported.length, "procedimento exportado", "procedimentos exportados")}.`, "success");
     return data;
@@ -105,7 +107,7 @@
     }
     const name = String(file.name || "").toLowerCase();
     if (name && !name.endsWith(".json") && file.type !== "application/json") {
-      throw new Error("Selecione um arquivo JSON exportado pelo IT Docs.");
+      throw new Error("Selecione um arquivo JSON exportado pelo Lingo.");
     }
     const text = await utils.readFileAsText(file);
     const parsed = utils.safeJsonParse(text);
@@ -124,7 +126,7 @@
 
     if (Array.isArray(data)) {
       rawProcedures = data;
-      warnings.push("O arquivo contém uma lista simples de procedimentos, sem os metadados do IT Docs.");
+      warnings.push("O arquivo contém uma lista simples de procedimentos, sem os metadados do Lingo.");
     } else if (data && typeof data === "object") {
       rawProcedures = data.procedures;
       appName = typeof data.app === "string" ? data.app : "";
@@ -142,7 +144,7 @@
       } else {
         warnings.push("O arquivo não informa a versão do formato. A importação será tentada como versão 1.");
       }
-      if (appName && appName !== "IT Docs") {
+      if (appName && appName !== APP_NAME && !LEGACY_APP_NAMES.has(appName)) {
         warnings.push(`O arquivo foi gerado por "${utils.truncate(appName, 50)}". Os dados serão validados antes da importação.`);
       }
     } else {

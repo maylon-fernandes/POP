@@ -515,7 +515,7 @@
     showView("reader");
     setActiveNav(procedure.category);
     images.releaseAll();
-    document.title = `${procedure.title} — IT Docs`;
+    document.title = `${procedure.title} — Lingo`;
 
     const category = categories.get(procedure.category);
     elements.readerBadges.innerHTML = "";
@@ -650,7 +650,7 @@
     state.editorReturnHash = `#/procedimento/${encodeURIComponent(record.id)}`;
     showView("editor");
     setActiveNav(record.category);
-    document.title = `Editando: ${record.title} — IT Docs`;
+    document.title = `Editando: ${record.title} — Lingo`;
   }
 
   async function renderEditor(procedure, options) {
@@ -666,12 +666,13 @@
           cleanupImages().catch(() => undefined);
         },
         onCreated: function (record) {
-          keepEditorVisibleAfterSave(record);
-          refreshData().catch(() => undefined);
+          updateProcedureInState(record);
+          refreshData()
+            .then(() => navigate("#/"))
+            .catch(() => navigate("#/"));
         },
         onSaved: function (record) {
           updateProcedureInState(record);
-          keepEditorVisibleAfterSave(record);
           refreshData().catch(() => undefined);
         },
         onExit: function () {
@@ -681,7 +682,7 @@
       state.activeEditor = editor;
       showView("editor");
       setActiveNav(null);
-      document.title = "Novo procedimento — IT Docs";
+      document.title = "Novo procedimento — Lingo";
       scroll.scrollTo(0, { immediate: true });
       return;
     }
@@ -712,7 +713,7 @@
     state.activeEditor = editor;
     showView("editor");
     setActiveNav(procedure.category);
-    document.title = `Editando: ${procedure.title} — IT Docs`;
+    document.title = `Editando: ${procedure.title} — Lingo`;
     scroll.scrollTo(0, { immediate: true });
   }
 
@@ -751,7 +752,7 @@
       }
       state.filterCategory = route.category || null;
       renderList();
-      document.title = state.filterCategory ? `${categories.get(state.filterCategory).label} — IT Docs` : "IT Docs — Procedimentos Operacionais";
+      document.title = state.filterCategory ? `${categories.get(state.filterCategory).label} — Lingo` : "Lingo — Procedimentos Operacionais";
       scroll.scrollTo(0, { immediate: true });
       animations.viewIn("list");
       return;
