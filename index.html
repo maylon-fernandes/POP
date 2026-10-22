@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Central de procedimentos operacionais padrão de TI.">
+  <meta name="theme-color" content="#212529">
+  <title>IT Docs — Procedimentos Operacionais</title>
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/vendor/lenis.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/editor.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Pular para o conteúdo</a>
+
+  <svg class="svg-sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="i-logo" viewBox="0 0 24 24">
+      <path d="M6 2.75h7.4L19 8.35v12.9H6z" fill="currentColor" opacity=".14"/>
+      <path d="M6 2.75h7.4L19 8.35v12.9H6z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+      <path d="M13.2 3v5.5h5.5M9 12h7M9 15.5h7M9 19h4.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m20 20-3.6-3.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 2 10 5-10 5L2 7z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="m2 12 10 5 10-5M2 17l10 5 10-5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></symbol>
+    <symbol id="i-software" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M3 9h18" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="6.3" cy="6.6" r=".8" fill="currentColor"/><circle cx="9" cy="6.6" r=".8" fill="currentColor"/><circle cx="11.7" cy="6.6" r=".8" fill="currentColor"/><path d="M7 13h4M7 16.5h7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+    <symbol id="i-hardware" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.7"/><rect x="9.5" y="9.5" width="5" height="5" rx=".7" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M9 2.5v3.5M15 2.5v3.5M9 18v3.5M15 18v3.5M2.5 9H6M2.5 15H6M18 9h3.5M18 15h3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+    <symbol id="i-network" viewBox="0 0 24 24"><rect x="16" y="16" width="6" height="5" rx="1" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="2" y="16" width="6" height="5" rx="1" fill="none" stroke="currentColor" stroke-width="1.6"/><rect x="9" y="3" width="6" height="5" rx="1" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M5 16v-2.5h14V16M12 13.5V8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+    <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="M12 20h9" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6M10 11v6M14 11v6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-more" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.4" fill="currentColor"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/><circle cx="12" cy="19" r="1.4" fill="currentColor"/></symbol>
+    <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m20 6-11 11-5-5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-warning" viewBox="0 0 24 24"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M12 9v4M12 17h.01" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 16v-4M12 8h.01" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24"><path d="M9 6h12M9 12h12M9 18h12" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="4" cy="6" r="1.2" fill="currentColor"/><circle cx="4" cy="12" r="1.2" fill="currentColor"/><circle cx="4" cy="18" r="1.2" fill="currentColor"/></symbol>
+    <symbol id="i-list-ordered" viewBox="0 0 24 24"><path d="M10 6h11M10 12h11M10 18h11" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M4 5.5 5.5 5v4M3.8 14.2c0-.7.6-1.2 1.3-1.2s1.3.5 1.3 1.2c0 1.3-2.5 1.9-2.5 4h2.6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-task" viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="1.6" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="m5 7 1.5 1.5L9 5.7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 7h7M14 17h7M3 17h7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+    <symbol id="i-quote" viewBox="0 0 24 24"><path d="M9 11H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v7c0 2.2-1.3 3.7-3 4.5M20 11h-4a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v7c0 2.2-1.3 3.7-3 4.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="8.5" cy="8.5" r="1.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="m21 15-5-5L5 21" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-align-left" viewBox="0 0 24 24"><path d="M3 5h18M3 10h12M3 15h18M3 20h10" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+    <symbol id="i-align-center" viewBox="0 0 24 24"><path d="M3 5h18M6 10h12M3 15h18M7 20h10" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+    <symbol id="i-align-right" viewBox="0 0 24 24"><path d="M3 5h18M9 10h12M3 15h18M11 20h10" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+    <symbol id="i-align-justify" viewBox="0 0 24 24"><path d="M3 5h18M3 10h18M3 15h18M3 20h18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+    <symbol id="i-undo" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+    <symbol id="i-redo" viewBox="0 0 24 24"><path d="m15 14 5-5-5-5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 9H9.5a5.5 5.5 0 0 0 0 11H13" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+    <symbol id="i-file-text" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 7v5l3.5 2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M16 2v4M8 2v4M3 10h18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+    <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 6a2 2 0 0 1 2-2h5l2 3h7a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></symbol>
+    <symbol id="i-search-off" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="m20 20-3.6-3.6M8.5 8.5l5 5M13.5 8.5l-5 5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+  </svg>
+
+  <div class="app-shell" id="app">
+    <aside class="sidebar" id="sidebar" aria-label="Navegação principal">
+      <div class="sidebar__header">
+        <a class="brand" href="#/" aria-label="IT Docs — início">
+          <span class="brand__mark"><svg class="icon" aria-hidden="true"><use href="#i-logo"></use></svg></span>
+          <span class="brand__text">
+            <strong>IT Docs</strong>
+            <small>Procedimentos de TI</small>
+          </span>
+        </a>
+        <button class="icon-btn sidebar__collapse" id="sidebar-collapse" type="button" aria-label="Recolher menu lateral" title="Recolher menu">
+          <svg class="icon" aria-hidden="true"><use href="#i-chevron-left"></use></svg>
+        </button>
+      </div>
+
+      <div class="sidebar__body">
+        <button class="btn btn--primary btn--block sidebar__new" id="new-procedure-btn" type="button">
+          <svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg>
+          <span>Novo procedimento</span>
+        </button>
+
+        <nav class="sidebar__nav" aria-label="Procedimentos">
+          <p class="nav-section-label">Geral</p>
+          <a class="nav-link" href="#/" data-nav="all" title="Todos os procedimentos">
+            <svg class="icon" aria-hidden="true"><use href="#i-layers"></use></svg>
+            <span class="nav-link__label">Todos os procedimentos</span>
+            <span class="nav-count" id="count-all">0</span>
+          </a>
+          <p class="nav-section-label">Categorias</p>
+          <a class="nav-link" href="#/categoria/software" data-nav="software" title="Software">
+            <span class="nav-dot nav-dot--software"></span>
+            <svg class="icon" aria-hidden="true"><use href="#i-software"></use></svg>
+            <span class="nav-link__label">Software</span>
+            <span class="nav-count" id="count-software">0</span>
+          </a>
+          <a class="nav-link" href="#/categoria/hardware" data-nav="hardware" title="Hardware">
+            <span class="nav-dot nav-dot--hardware"></span>
+            <svg class="icon" aria-hidden="true"><use href="#i-hardware"></use></svg>
+            <span class="nav-link__label">Hardware</span>
+            <span class="nav-count" id="count-hardware">0</span>
+          </a>
+          <a class="nav-link" href="#/categoria/rede" data-nav="rede" title="Rede">
+            <span class="nav-dot nav-dot--rede"></span>
+            <svg class="icon" aria-hidden="true"><use href="#i-network"></use></svg>
+            <span class="nav-link__label">Rede</span>
+            <span class="nav-count" id="count-rede">0</span>
+          </a>
+        </nav>
+
+        <div class="sidebar__footer">
+          <div class="storage-indicator" id="storage-indicator" title="Seus dados ficam neste navegador">
+            <span class="storage-indicator__dot" aria-hidden="true"></span>
+            <span id="storage-indicator-text">Armazenamento local</span>
+          </div>
+          <button class="motion-toggle is-on" id="animations-toggle" type="button" aria-pressed="true" title="Desativar animações">
+            <span class="motion-toggle__label">Animações</span>
+            <span class="motion-toggle__switch" aria-hidden="true"></span>
+          </button>
+          <div class="sidebar__actions">
+            <button class="sidebar-action" id="import-btn" type="button" title="Importar arquivo JSON">
+              <svg class="icon" aria-hidden="true"><use href="#i-upload"></use></svg>
+              <span>Importar</span>
+            </button>
+            <button class="sidebar-action" id="export-all-btn" type="button" title="Exportar todos os procedimentos">
+              <svg class="icon" aria-hidden="true"><use href="#i-download"></use></svg>
+              <span>Exportar</span>
+            </button>
+          </div>
+          <div class="sidebar__total">
+            <strong id="sidebar-total">0</strong> <span id="sidebar-total-label">procedimentos salvos</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebar-overlay" hidden></div>
+
+    <div class="main-shell">
+      <header class="mobile-header">
+        <button class="icon-btn" id="mobile-menu-btn" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="sidebar">
+          <svg class="icon" aria-hidden="true"><use href="#i-menu"></use></svg>
+        </button>
+        <a class="brand brand--compact" href="#/" aria-label="IT Docs — início">
+          <span class="brand__mark"><svg class="icon" aria-hidden="true"><use href="#i-logo"></use></svg></span>
+          <span class="brand__text"><strong>IT Docs</strong></span>
+        </a>
+        <button class="icon-btn" id="mobile-new-btn" type="button" aria-label="Novo procedimento">
+          <svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg>
+        </button>
+      </header>
+
+      <main class="main" id="main" tabindex="-1">
+        <div class="main__content" id="main-content">
+        <section class="view view--list" id="view-list" aria-labelledby="list-title" hidden>
+          <div class="page">
+            <header class="page-header">
+              <div class="page-header__top">
+                <div class="page-header__title">
+                  <p class="eyebrow">Central de documentação</p>
+                  <h1 id="list-title">Todos os procedimentos</h1>
+                  <p class="page-header__subtitle" id="list-subtitle">Documentação técnica organizada para consulta rápida.</p>
+                </div>
+                <button class="btn btn--primary page-header__new" id="list-new-btn" type="button">
+                  <svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg>
+                  <span>Novo procedimento</span>
+                </button>
+              </div>
+
+              <div class="list-toolbar">
+                <div class="search-field">
+                  <svg class="icon search-field__icon" aria-hidden="true"><use href="#i-search"></use></svg>
+                  <input type="search" id="list-search" placeholder="Pesquisar por título, descrição ou conteúdo..." aria-label="Pesquisar procedimentos" autocomplete="off">
+                  <button class="search-field__clear" id="list-search-clear" type="button" aria-label="Limpar pesquisa" hidden>
+                    <svg class="icon" aria-hidden="true"><use href="#i-x"></use></svg>
+                  </button>
+                </div>
+                <label class="select-field">
+                  <span class="sr-only">Ordenar por</span>
+                  <select id="sort-select">
+                    <option value="updated-desc">Atualizados recentemente</option>
+                    <option value="updated-asc">Atualizados há mais tempo</option>
+                    <option value="title-asc">Título (A–Z)</option>
+                    <option value="created-desc">Criados recentemente</option>
+                  </select>
+                  <svg class="icon select-field__icon" aria-hidden="true"><use href="#i-chevron-down"></use></svg>
+                </label>
+              </div>
+
+              <div class="filter-chips" id="filter-chips" role="group" aria-label="Filtrar por categoria">
+                <button class="chip" type="button" data-category="">Todas</button>
+                <button class="chip" type="button" data-category="software"><span class="chip__dot chip__dot--software"></span>Software</button>
+                <button class="chip" type="button" data-category="hardware"><span class="chip__dot chip__dot--hardware"></span>Hardware</button>
+                <button class="chip" type="button" data-category="rede"><span class="chip__dot chip__dot--rede"></span>Rede</button>
+              </div>
+            </header>
+
+            <div class="list-summary" id="list-summary" aria-live="polite"></div>
+            <div class="procedures-grid" id="procedures-container"></div>
+          </div>
+        </section>
+
+        <section class="view view--editor" id="view-editor" aria-label="Editor de procedimento" hidden>
+          <div class="editor-shell">
+            <div class="editor-topbar">
+              <button class="btn btn--ghost editor-topbar__back" id="editor-back" type="button">
+                <svg class="icon" aria-hidden="true"><use href="#i-arrow-left"></use></svg>
+                <span>Voltar</span>
+              </button>
+              <div class="save-status" id="save-status" data-state="saved" role="status" aria-live="polite">
+                <span class="save-status__dot" aria-hidden="true"></span>
+                <span id="save-status-text">Salvo</span>
+              </div>
+              <div class="editor-topbar__actions">
+                <button class="btn btn--ghost btn--icon-label" id="editor-markdown" type="button" title="Abrir Markdown para copiar ou colar no editor">
+                  <svg class="icon" aria-hidden="true"><use href="#i-file-text"></use></svg>
+                  <span>Markdown</span>
+                </button>
+                <button class="btn" id="editor-cancel" type="button">Cancelar</button>
+                <button class="btn btn--primary" id="editor-save" type="button">
+                  <svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>
+                  <span>Salvar</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="editor-canvas">
+              <div class="editor-draft" id="editor-draft" role="status" hidden>
+                <div class="editor-draft__text">
+                  <svg class="icon" aria-hidden="true"><use href="#i-file-text"></use></svg>
+                  <div>
+                    <strong>Rascunho não publicado</strong>
+                    <span id="editor-draft-text"></span>
+                  </div>
+                </div>
+                <div class="editor-draft__actions">
+                  <button class="btn btn--ghost btn--sm" id="editor-draft-discard" type="button">Descartar</button>
+                  <button class="btn btn--primary btn--sm" id="editor-draft-restore" type="button">Restaurar rascunho</button>
+                </div>
+              </div>
+
+              <div class="editor-doc">
+                <div class="editor-meta">
+                  <label class="sr-only" for="editor-title">Título do procedimento</label>
+                  <input class="editor-title" id="editor-title" type="text" placeholder="Título do procedimento" maxlength="160" autocomplete="off" spellcheck="true">
+                  <p class="field-error" id="editor-title-error" hidden></p>
+
+                  <div class="editor-meta__grid">
+                    <div class="field">
+                      <label class="field__label" for="editor-category">Categoria <span class="required">*</span></label>
+                      <label class="select-field select-field--full">
+                        <select id="editor-category">
+                          <option value="">Selecione uma categoria</option>
+                          <option value="software">Software</option>
+                          <option value="hardware">Hardware</option>
+                          <option value="rede">Rede</option>
+                        </select>
+                        <svg class="icon select-field__icon" aria-hidden="true"><use href="#i-chevron-down"></use></svg>
+                      </label>
+                      <p class="field-error" id="editor-category-error" hidden></p>
+                    </div>
+                    <div class="field field--grow">
+                      <label class="field__label" for="editor-description">Descrição resumida <span class="field__optional">opcional</span></label>
+                      <textarea id="editor-description" rows="2" maxlength="300" placeholder="Um resumo curto para facilitar a busca e a identificação."></textarea>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="toolbar-wrap">
+                  <div class="editor-toolbar" id="editor-toolbar" role="toolbar" aria-label="Barra de formatação">
+                    <div class="toolbar-group" aria-label="Histórico">
+                      <button class="tool-btn" type="button" data-command="undo" title="Desfazer (Ctrl+Z)" aria-label="Desfazer">
+                        <svg class="icon" aria-hidden="true"><use href="#i-undo"></use></svg>
+                      </button>
+                      <button class="tool-btn" type="button" data-command="redo" title="Refazer (Ctrl+Shift+Z)" aria-label="Refazer">
+                        <svg class="icon" aria-hidden="true"><use href="#i-redo"></use></svg>
+                      </button>
+                    </div>
+                    <div class="toolbar-group" aria-label="Estilo do bloco">
+                      <button class="tool-btn tool-btn--text" type="button" data-block="p" title="Parágrafo" aria-label="Parágrafo">¶</button>
+                      <button class="tool-btn tool-btn--text" type="button" data-block="h1" title="Título 1" aria-label="Título 1">H1</button>
+                      <button class="tool-btn tool-btn--text" type="button" data-block="h2" title="Título 2" aria-label="Título 2">H2</button>
+                      <button class="tool-btn tool-btn--text" type="button" data-block="h3" title="Título 3" aria-label="Título 3">H3</button>
+                    </div>
+                    <div class="toolbar-group" aria-label="Formatação de texto">
+                      <button class="tool-btn tool-btn--text tool-btn--bold" type="button" data-command="bold" title="Negrito (Ctrl+B)" aria-label="Negrito"><strong>B</strong></button>
+                      <button class="tool-btn tool-btn--text tool-btn--italic" type="button" data-command="italic" title="Itálico (Ctrl+I)" aria-label="Itálico"><em>I</em></button>
+                      <button class="tool-btn tool-btn--text tool-btn--underline" type="button" data-command="underline" title="Sublinhado (Ctrl+U)" aria-label="Sublinhado"><u>U</u></button>
+                      <button class="tool-btn tool-btn--text tool-btn--strike" type="button" data-command="strikeThrough" title="Tachado" aria-label="Tachado"><s>S</s></button>
+                      <button class="tool-btn tool-btn--text" type="button" data-command="inlineCode" title="Código em linha" aria-label="Código em linha">&lt;/&gt;</button>
+                    </div>
+                    <div class="toolbar-group" aria-label="Listas e blocos">
+                      <button class="tool-btn" type="button" data-command="insertUnorderedList" title="Lista com marcadores" aria-label="Lista com marcadores">
+                        <svg class="icon" aria-hidden="true"><use href="#i-list"></use></svg>
+                      </button>
+                      <button class="tool-btn" type="button" data-command="insertOrderedList" title="Lista numerada" aria-label="Lista numerada">
+                        <svg class="icon" aria-hidden="true"><use href="#i-list-ordered"></use></svg>
+                      </button>
+                      <button class="tool-btn" type="button" data-command="taskList" title="Lista de tarefas" aria-label="Lista de tarefas">
+                        <svg class="icon" aria-hidden="true"><use href="#i-task"></use></svg>
+                      </button>
+                      <button class="tool-btn" type="button" data-block="blockquote" title="Citação" aria-label="Citação">
+                        <svg class="icon" aria-hidden="true"><use href="#i-quote"></use></svg>
+                      </button>
+                      <button class="tool-btn" type="button" data-block="pre" title="Bloco de código" aria-label="Bloco de código">
+                        <svg class="icon" aria-hidden="true"><use href="#i-code"></use></svg>
+                      </button>
+                      <button class="tool-btn" type="button" data-command="insertHorizontalRule" title="Linha divisória" aria-label="Linha divisória">
+                        <svg class="icon" aria-hidden="true"><use href="#i-minus"></use></svg>
+                      </button>
+                    </div>
+                    <div class="toolbar-group" aria-label="Alinhamento">
+                      <button class="tool-btn" type="button" data-command="justifyLeft" title="Alinhar à esquerda" aria-label="Alinhar à esquerda">
+                        <svg class="icon" aria-hidden="true"><use href="#i-align-left"></use></svg>
+                      </button>
+                      <button class="tool-btn" type="button" data-command="justifyCenter" title="Centralizar" aria-label="Centralizar">
+                        <svg class="icon" aria-hidden="true"><use href="#i-align-center"></use></svg>
+                      </button>
+                      <button class="tool-btn" type="button" data-command="justifyRight" title="Alinhar à direita" aria-label="Alinhar à direita">
+                        <svg class="icon" aria-hidden="true"><use href="#i-align-right"></use></svg>
+                      </button>
+                      <button class="tool-btn" type="button" data-command="justifyFull" title="Justificar" aria-label="Justificar">
+                        <svg class="icon" aria-hidden="true"><use href="#i-align-justify"></use></svg>
+                      </button>
+                    </div>
+                    <div class="toolbar-group" aria-label="Inserir">
+                      <button class="tool-btn" type="button" data-command="link" title="Inserir link (Ctrl+K)" aria-label="Inserir link">
+                        <svg class="icon" aria-hidden="true"><use href="#i-link"></use></svg>
+                      </button>
+                      <button class="tool-btn" type="button" data-command="image" title="Inserir imagem" aria-label="Inserir imagem">
+                        <svg class="icon" aria-hidden="true"><use href="#i-image"></use></svg>
+                      </button>
+                      <button class="tool-btn" type="button" data-command="markdownImport" title="Importar conteúdo Markdown" aria-label="Importar Markdown">
+                        <svg class="icon" aria-hidden="true"><use href="#i-upload"></use></svg>
+                      </button>
+                      <button class="tool-btn" type="button" data-command="removeFormat" title="Limpar formatação" aria-label="Limpar formatação">
+                        <svg class="icon" aria-hidden="true"><use href="#i-x"></use></svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="editor-content-wrap">
+                  <div class="editor-content" id="editor-content" contenteditable="true" role="textbox" aria-multiline="true" aria-label="Conteúdo do procedimento" data-placeholder="Comece a escrever o procedimento..."></div>
+                  <p class="editor-hint">Dica: use Ctrl+B, Ctrl+I, Ctrl+K e Ctrl+S. Cole imagens diretamente no documento.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="image-controls" id="image-controls" hidden>
+              <span class="image-controls__label">Tamanho</span>
+              <button class="image-controls__size" type="button" data-width="25">25%</button>
+              <button class="image-controls__size" type="button" data-width="50">50%</button>
+              <button class="image-controls__size" type="button" data-width="75">75%</button>
+              <button class="image-controls__size" type="button" data-width="100">100%</button>
+              <span class="image-controls__sep" aria-hidden="true"></span>
+              <button class="image-controls__remove" type="button">
+                <svg class="icon" aria-hidden="true"><use href="#i-trash"></use></svg>
+                <span>Remover</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section class="view view--reader" id="view-reader" aria-labelledby="reader-title" hidden>
+          <div class="reader-shell">
+            <div class="reader-topbar">
+              <button class="btn btn--ghost" id="reader-back" type="button">
+                <svg class="icon" aria-hidden="true"><use href="#i-arrow-left"></use></svg>
+                <span>Voltar</span>
+              </button>
+              <div class="reader-topbar__actions">
+                <button class="btn btn--ghost btn--icon-label" id="reader-export-md" type="button" title="Exportar procedimento em Markdown">
+                  <svg class="icon" aria-hidden="true"><use href="#i-download"></use></svg>
+                  <span>Markdown</span>
+                </button>
+                <button class="btn" id="reader-edit" type="button">
+                  <svg class="icon" aria-hidden="true"><use href="#i-edit"></use></svg>
+                  <span>Editar</span>
+                </button>
+                <button class="icon-btn" id="reader-more" type="button" aria-label="Mais ações" aria-haspopup="menu" aria-expanded="false">
+                  <svg class="icon" aria-hidden="true"><use href="#i-more"></use></svg>
+                </button>
+              </div>
+            </div>
+
+            <article class="reader-doc">
+              <header class="reader-header">
+                <div class="reader-badges" id="reader-badges"></div>
+                <h1 id="reader-title"></h1>
+                <p class="reader-description" id="reader-description" hidden></p>
+                <div class="reader-meta" id="reader-meta"></div>
+              </header>
+              <div class="doc-content" id="reader-content"></div>
+              <footer class="reader-footer">
+                <span>IT Docs · Procedimento operacional padrão</span>
+              </footer>
+            </article>
+          </div>
+        </section>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <div class="toast-region" id="toast-region" role="status" aria-live="polite"></div>
+
+  <dialog class="dialog" id="confirm-dialog" aria-labelledby="confirm-title">
+    <form method="dialog" class="dialog__surface">
+      <div class="dialog__icon" id="confirm-icon" aria-hidden="true">
+        <svg class="icon"><use href="#i-warning"></use></svg>
+      </div>
+      <h2 class="dialog__title" id="confirm-title">Confirmar ação</h2>
+      <div class="dialog__text" id="confirm-message"></div>
+      <div class="dialog__actions">
+        <button class="btn" value="cancel" id="confirm-cancel" type="submit">Cancelar</button>
+        <button class="btn btn--danger" value="confirm" id="confirm-ok" type="submit">Confirmar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog class="dialog" id="prompt-dialog" aria-labelledby="prompt-title">
+    <form method="dialog" class="dialog__surface" id="prompt-form">
+      <h2 class="dialog__title" id="prompt-title">Informe um valor</h2>
+      <p class="dialog__text" id="prompt-helper"></p>
+      <label class="field">
+        <span class="field__label" id="prompt-label">Valor</span>
+        <input class="input" id="prompt-input" type="text" autocomplete="off">
+      </label>
+      <p class="field-error" id="prompt-error" hidden></p>
+      <div class="dialog__actions">
+        <button class="btn" value="cancel" type="submit">Cancelar</button>
+        <button class="btn btn--primary" value="confirm" id="prompt-ok" type="submit">Confirmar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog class="dialog dialog--wide" id="markdown-dialog" aria-labelledby="markdown-title">
+    <div class="dialog__surface">
+      <div class="dialog__header">
+        <h2 class="dialog__title" id="markdown-title">Markdown do procedimento</h2>
+        <button class="icon-btn" type="button" data-close-dialog="markdown-dialog" aria-label="Fechar">
+          <svg class="icon" aria-hidden="true"><use href="#i-x"></use></svg>
+        </button>
+      </div>
+      <p class="dialog__text" id="markdown-help">Este é o conteúdo convertido para Markdown. Imagens aparecem como links e podem ser copiadas.</p>
+          <textarea class="markdown-output" id="markdown-output" readonly spellcheck="false" aria-label="Conteúdo em Markdown" placeholder="Cole aqui o Markdown do procedimento..."></textarea>
+      <div class="dialog__actions dialog__actions--spread">
+        <button class="btn" type="button" id="markdown-download">
+          <svg class="icon" aria-hidden="true"><use href="#i-download"></use></svg>
+          <span>Baixar .md</span>
+        </button>
+        <div class="dialog__actions-group">
+          <button class="btn" type="button" id="markdown-copy">
+            <svg class="icon" aria-hidden="true"><use href="#i-copy"></use></svg>
+            <span>Copiar</span>
+          </button>
+          <button class="btn btn--primary" type="button" id="markdown-apply" hidden>
+            <svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>
+            <span>Aplicar no editor</span>
+          </button>
+          <button class="btn" type="button" data-close-dialog="markdown-dialog">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="dialog dialog--wide" id="import-dialog" aria-labelledby="import-title">
+    <div class="dialog__surface">
+      <div class="dialog__header">
+        <h2 class="dialog__title" id="import-title">Importar procedimentos</h2>
+        <button class="icon-btn" type="button" data-close-dialog="import-dialog" aria-label="Fechar">
+          <svg class="icon" aria-hidden="true"><use href="#i-x"></use></svg>
+        </button>
+      </div>
+      <div class="import-summary" id="import-summary"></div>
+      <fieldset class="import-options" id="import-options">
+        <legend>Como tratar procedimentos com o mesmo identificador?</legend>
+        <label class="radio-card">
+          <input type="radio" name="import-strategy" value="skip" checked>
+          <span><strong>Ignorar duplicados</strong><small>Mantém os procedimentos atuais e importa apenas os novos.</small></span>
+        </label>
+        <label class="radio-card">
+          <input type="radio" name="import-strategy" value="update">
+          <span><strong>Atualizar existentes</strong><small>Substitui os dados do procedimento atual pelos do arquivo.</small></span>
+        </label>
+        <label class="radio-card">
+          <input type="radio" name="import-strategy" value="new">
+          <span><strong>Importar como novos</strong><small>Gera novos identificadores e mantém os dois procedimentos.</small></span>
+        </label>
+      </fieldset>
+      <div class="import-warnings" id="import-warnings"></div>
+      <div class="dialog__actions">
+        <button class="btn" type="button" id="import-cancel">Cancelar</button>
+        <button class="btn btn--primary" type="button" id="import-confirm">
+          <svg class="icon" aria-hidden="true"><use href="#i-upload"></use></svg>
+          <span>Importar</span>
+        </button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="dialog" id="image-dialog" aria-labelledby="image-dialog-title">
+    <form method="dialog" class="dialog__surface" id="image-dialog-form">
+      <h2 class="dialog__title" id="image-dialog-title">Inserir imagem</h2>
+      <p class="dialog__text">Envie um arquivo do computador ou informe a URL de uma imagem publicada na web.</p>
+      <button class="upload-zone" type="button" id="image-dialog-file">
+        <svg class="icon" aria-hidden="true"><use href="#i-image"></use></svg>
+        <span><strong>Escolher arquivo</strong><small>PNG, JPG, GIF, WebP, BMP ou AVIF · até 8 MB</small></span>
+      </button>
+      <div class="field">
+        <label class="field__label" for="image-dialog-url">URL da imagem</label>
+        <input class="input" id="image-dialog-url" type="url" placeholder="https://exemplo.com/imagem.png" autocomplete="off">
+        <p class="field-error" id="image-dialog-error" hidden></p>
+      </div>
+      <div class="dialog__actions">
+        <button class="btn" value="cancel" type="submit">Cancelar</button>
+        <button class="btn btn--primary" value="confirm" id="image-dialog-ok" type="submit">Inserir por URL</button>
+      </div>
+    </form>
+  </dialog>
+
+  <input type="file" id="import-file-input" accept=".json,application/json" hidden>
+  <input type="file" id="image-file-input" accept="image/png,image/jpeg,image/gif,image/webp,image/bmp,image/avif" hidden>
+  <input type="file" id="markdown-file-input" accept=".md,.markdown,text/markdown,text/plain" hidden>
+
+  <script src="assets/vendor/gsap.min.js"></script>
+  <script src="assets/vendor/lenis.min.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/security.js"></script>
+  <script src="js/categories.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/images.js"></script>
+  <script src="js/markdown.js"></script>
+  <script src="js/procedures.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/scroll.js"></script>
+  <script src="js/import-export.js"></script>
+  <script src="js/editor.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
