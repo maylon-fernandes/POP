@@ -9,7 +9,7 @@ Aplicação web para criar, organizar e consultar Procedimentos Operacionais Pad
 - Busca sem distinção de acentos, filtro por categoria e ordenação por atualização, criação ou título.
 - Leitura formatada com marcação de tarefas persistente.
 - Salvamento automático de procedimentos existentes e rascunho local para novos procedimentos. Ao criar um novo, o editor abre em branco e oferece a restauração do rascunho anterior sob demanda.
-- Inserção de imagens por upload, colagem ou URL. Uploads são armazenados no IndexedDB.
+- Inserção de imagens por upload, colagem ou URL, com ajuste de tamanho e alinhamento à esquerda, centro ou direita. Uploads são armazenados no IndexedDB.
 - Importação e exportação em JSON, com imagens incorporadas como Data URLs.
 - Exportação, visualização e cópia em Markdown, além de importação de arquivos `.md`.
 - Sanitização de HTML na gravação, leitura e importação.

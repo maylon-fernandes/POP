@@ -1535,6 +1535,24 @@ fieldset {
   width: 100%;
 }
 
+.doc-content img.img-align-left,
+.editor-content img.img-align-left {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.doc-content img.img-align-center,
+.editor-content img.img-align-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.doc-content img.img-align-right,
+.editor-content img.img-align-right {
+  margin-left: auto;
+  margin-right: 0;
+}
+
 .doc-content img[data-image-id]:not([src]),
 .editor-content img[data-image-id]:not([src]) {
   min-width: 180px;
@@ -1627,6 +1645,24 @@ fieldset {
   margin: 0;
   border-radius: 8px;
   box-shadow: none;
+}
+
+.doc-content p:has(> img.img-align-left:only-child),
+.editor-content p:has(> img.img-align-left:only-child) {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.doc-content p:has(> img.img-align-center:only-child),
+.editor-content p:has(> img.img-align-center:only-child) {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.doc-content p:has(> img.img-align-right:only-child),
+.editor-content p:has(> img.img-align-right:only-child) {
+  margin-left: auto;
+  margin-right: 0;
 }
 
 .doc-content mark,

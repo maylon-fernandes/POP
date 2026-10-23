@@ -10,6 +10,7 @@
   const importExport = NS.importExport;
 
   const BLOCK_SELECTOR = "p, div, h1, h2, h3, h4, h5, h6, ul, ol, blockquote, pre, hr, figure";
+  const IMAGE_CLASS_PATTERN = /^(img-w-(25|50|75|100)|img-align-(left|center|right))$/;
   const TOP_LEVEL_BLOCKS = new Set([
     "P",
     "DIV",
@@ -502,7 +503,7 @@
           img.removeAttribute("loading");
           img.removeAttribute("decoding");
           Array.from(img.classList).forEach((name) => {
-            if (!/^img-w-(25|50|75|100)$/.test(name)) img.classList.remove(name);
+            if (!IMAGE_CLASS_PATTERN.test(name)) img.classList.remove(name);
           });
           img.classList.add("doc-image");
         } else {
@@ -1168,8 +1169,12 @@
       if (!this.selectedImage) return;
       const classes = Array.from(this.selectedImage.classList);
       const activeWidth = classes.find((name) => /^img-w-(25|50|75|100)$/.test(name));
+      const activeAlign = classes.find((name) => /^img-align-(left|center|right)$/.test(name)) || "img-align-center";
       this.imageControls.querySelectorAll("[data-width]").forEach((button) => {
         button.classList.toggle("is-active", activeWidth === `img-w-${button.dataset.width}`);
+      });
+      this.imageControls.querySelectorAll("[data-align]").forEach((button) => {
+        button.classList.toggle("is-active", activeAlign === `img-align-${button.dataset.align}`);
       });
     }
 
@@ -1207,6 +1212,16 @@
         const width = widthButton.dataset.width;
         ["25", "50", "75", "100"].forEach((value) => this.selectedImage.classList.remove(`img-w-${value}`));
         this.selectedImage.classList.add(`img-w-${width}`);
+        this.updateImageControlState();
+        this.positionImageControls();
+        this.markDirty();
+        return;
+      }
+      const alignButton = event.target.closest("[data-align]");
+      if (alignButton) {
+        const align = alignButton.dataset.align;
+        ["left", "center", "right"].forEach((value) => this.selectedImage.classList.remove(`img-align-${value}`));
+        this.selectedImage.classList.add(`img-align-${align}`);
         this.updateImageControlState();
         this.positionImageControls();
         this.markDirty();
