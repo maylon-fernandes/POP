@@ -482,28 +482,37 @@
   }
 
   function buildProcedureCard(procedure) {
-    const card = document.createElement("article");
-    card.className = "procedure-card";
-    card.dataset.id = procedure.id;
-    card.dataset.category = procedure.category;
-    card.tabIndex = 0;
-    card.setAttribute("role", "link");
-    card.setAttribute("aria-label", `Abrir procedimento: ${procedure.title}`);
+      const card = document.createElement("article");
+      card.className = "procedure-card";
+      card.dataset.id = procedure.id;
+      card.dataset.category = procedure.category;
+      card.tabIndex = 0;
+      card.setAttribute("role", "link");
+      card.setAttribute("aria-label", `Abrir procedimento: ${procedure.title}`);
 
-    const title = document.createElement("h2");
-    title.className = "procedure-card__title";
-    title.textContent = procedure.title;
+      const title = document.createElement("h2");
+      title.className = "procedure-card__title";
+      title.textContent = procedure.title;
 
-    const description = String(procedure.description || "").trim();
-    const excerpt = document.createElement("p");
-    excerpt.className = "procedure-card__excerpt";
-    excerpt.textContent = description || "Sem descrição.";
-    if (!description) excerpt.classList.add("is-empty");
+      const description = String(procedure.description || "").trim();
+      const excerpt = document.createElement("p");
+      excerpt.className = "procedure-card__excerpt";
+      excerpt.textContent = description || "Sem descrição.";
+      if (!description) excerpt.classList.add("is-empty");
 
-    card.appendChild(title);
-    card.appendChild(excerpt);
-    return card;
-  }
+      const category = categories.get(procedure.category);
+      const badge = document.createElement("span");
+      badge.className = `category-badge category-badge--${category?.color || "accent"}`;
+      badge.appendChild(ui.icon(category?.icon || "i-info"));
+      const badgeText = document.createElement("span");
+      badgeText.textContent = category?.label || "Sem categoria";
+      badge.appendChild(badgeText);
+
+      card.appendChild(title);
+      card.appendChild(excerpt);
+      card.appendChild(badge);
+      return card;
+    }
 
   function openReader(id) {
     state.returnHash = state.currentRoute;

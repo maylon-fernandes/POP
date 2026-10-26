@@ -24,13 +24,15 @@
   --warning-soft: rgba(255, 193, 7, 0.14);
   --success: #20c997;
   --success-soft: rgba(32, 201, 151, 0.16);
-  --software: #6ea8fe;
-  --software-soft: rgba(110, 168, 254, 0.16);
+  --sistema: #6ea8fe;
+    --sistema-soft: rgba(110, 168, 254, 0.16);
   --hardware: #ffda6a;
   --hardware-soft: rgba(255, 218, 106, 0.15);
   --rede: #20c997;
-  --rede-soft: rgba(32, 201, 151, 0.16);
-  --sidebar-w: 272px;
+    --rede-soft: rgba(32, 201, 151, 0.16);
+    --tasy: #d982e8;
+    --tasy-soft: rgba(217, 130, 232, 0.16);
+    --sidebar-w: 272px;
   --sidebar-w-collapsed: 78px;
   --radius-xs: 6px;
   --radius-sm: 9px;
@@ -387,8 +389,8 @@ fieldset {
   border-radius: 999px;
 }
 
-.nav-dot--software {
-  background: var(--software);
+.nav-dot--sistema {
+  background: var(--sistema);
 }
 
 .nav-dot--hardware {
@@ -397,6 +399,10 @@ fieldset {
 
 .nav-dot--rede {
   background: var(--rede);
+}
+
+.nav-dot--tasy {
+  background: var(--tasy);
 }
 
 .sidebar__footer {
@@ -1060,8 +1066,8 @@ fieldset {
   border-radius: 999px;
 }
 
-.chip__dot--software {
-  background: var(--software);
+.chip__dot--sistema {
+  background: var(--sistema);
 }
 
 .chip__dot--hardware {
@@ -1070,6 +1076,10 @@ fieldset {
 
 .chip__dot--rede {
   background: var(--rede);
+}
+
+.chip__dot--tasy {
+  background: var(--tasy);
 }
 
 .list-summary {
@@ -1143,9 +1153,9 @@ fieldset {
   outline-offset: 2px;
 }
 
-.procedure-card[data-category="software"] {
-  --category-color: var(--software);
-  --category-soft: var(--software-soft);
+.procedure-card[data-category="sistema"] {
+  --category-color: var(--sistema);
+  --category-soft: var(--sistema-soft);
 }
 
 .procedure-card[data-category="hardware"] {
@@ -1156,6 +1166,11 @@ fieldset {
 .procedure-card[data-category="rede"] {
   --category-color: var(--rede);
   --category-soft: var(--rede-soft);
+}
+
+.procedure-card[data-category="tasy"] {
+  --category-color: var(--tasy);
+  --category-soft: var(--tasy-soft);
 }
 
 .category-badge {
@@ -1177,9 +1192,9 @@ fieldset {
   height: 12px;
 }
 
-.category-badge--software {
-  --category-color: var(--software);
-  --category-soft: var(--software-soft);
+.category-badge--sistema {
+  --category-color: var(--sistema);
+  --category-soft: var(--sistema-soft);
 }
 
 .category-badge--hardware {
@@ -1190,6 +1205,16 @@ fieldset {
 .category-badge--rede {
   --category-color: var(--rede);
   --category-soft: var(--rede-soft);
+}
+
+.category-badge--tasy {
+  --category-color: var(--tasy);
+  --category-soft: var(--tasy-soft);
+}
+
+.procedure-card .category-badge {
+  margin-top: 12px;
+  align-self: flex-start;
 }
 
 .procedure-card__title {

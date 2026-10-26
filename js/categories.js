@@ -4,28 +4,35 @@
   const NS = (window.ITDocs = window.ITDocs || {});
 
   const categories = [
-    {
-      id: "software",
-      label: "Software",
-      icon: "i-software",
-      description: "Instalação, configuração de aplicativos, e-mail e resolução de erros.",
-      color: "software",
-    },
-    {
-      id: "hardware",
-      label: "Hardware",
-      icon: "i-hardware",
-      description: "Manutenção, componentes, periféricos e diagnóstico de equipamentos.",
-      color: "hardware",
-    },
-    {
-      id: "rede",
-      label: "Rede",
-      icon: "i-network",
-      description: "Conectividade, IP, DNS, DHCP, Wi-Fi, switches e roteadores.",
-      color: "rede",
-    },
-  ];
+      {
+            id: "sistema",
+            label: "Sistema",
+            icon: "i-software",
+            description: "Instalação, configuração de aplicativos, e-mail e resolução de erros.",
+            color: "sistema",
+          },
+      {
+        id: "hardware",
+        label: "Hardware",
+        icon: "i-hardware",
+        description: "Manutenção, componentes, periféricos e diagnóstico de equipamentos.",
+        color: "hardware",
+      },
+      {
+        id: "rede",
+        label: "Rede",
+        icon: "i-network",
+        description: "Conectividade, IP, DNS, DHCP, Wi-Fi, switches e roteadores.",
+        color: "rede",
+      },
+      {
+        id: "tasy",
+        label: "Tasy",
+        icon: "i-tasy",
+        description: "Procedimentos e configurações do sistema Tasy.",
+        color: "tasy",
+      },
+    ];
 
   const byId = new Map(categories.map((category) => [category.id, category]));
 
