@@ -328,20 +328,22 @@
   }
 
   function updateSidebarCounts() {
-    const counts = search.counts(state.procedures);
-    const all = document.getElementById("count-all");
-    const software = document.getElementById("count-software");
-    const hardware = document.getElementById("count-hardware");
-    const rede = document.getElementById("count-rede");
-    if (all) all.textContent = String(counts.all);
-    if (software) software.textContent = String(counts.software);
-    if (hardware) hardware.textContent = String(counts.hardware);
-    if (rede) rede.textContent = String(counts.rede);
-    const total = document.getElementById("sidebar-total");
-    const totalLabel = document.getElementById("sidebar-total-label");
-    if (total) total.textContent = String(counts.all);
-    if (totalLabel) totalLabel.textContent = counts.all === 1 ? "procedimento salvo" : "procedimentos salvos";
-  }
+      const counts = search.counts(state.procedures);
+      const all = document.getElementById("count-all");
+      const sistema = document.getElementById("count-sistema");
+      const hardware = document.getElementById("count-hardware");
+      const rede = document.getElementById("count-rede");
+      const tasy = document.getElementById("count-tasy");
+      if (all) all.textContent = String(counts.all);
+      if (sistema) sistema.textContent = String(counts.sistema);
+      if (hardware) hardware.textContent = String(counts.hardware);
+      if (rede) rede.textContent = String(counts.rede);
+      if (tasy) tasy.textContent = String(counts.tasy);
+      const total = document.getElementById("sidebar-total");
+      const totalLabel = document.getElementById("sidebar-total-label");
+      if (total) total.textContent = String(counts.all);
+      if (totalLabel) totalLabel.textContent = counts.all === 1 ? "procedimento salvo" : "procedimentos salvos";
+    }
 
   function updateClearButton() {
     elements.listSearchClear.hidden = !state.query;

@@ -63,14 +63,14 @@
   }
 
   function counts(procedures) {
-    const result = { all: procedures.length, software: 0, hardware: 0, rede: 0 };
-    procedures.forEach((procedure) => {
-      if (Object.prototype.hasOwnProperty.call(result, procedure.category)) {
-        result[procedure.category] += 1;
-      }
-    });
-    return result;
-  }
+      const result = { all: procedures.length, sistema: 0, hardware: 0, rede: 0, tasy: 0 };
+      procedures.forEach((procedure) => {
+        if (Object.prototype.hasOwnProperty.call(result, procedure.category)) {
+          result[procedure.category] += 1;
+        }
+      });
+      return result;
+    }
 
   NS.search = {
     SORT_OPTIONS,
