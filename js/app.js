@@ -66,6 +66,89 @@
     elements.animationsToggle = document.getElementById("animations-toggle");
   }
 
+  function applyCategoryColors(node, category) {
+    if (!node || !category) return;
+    node.style.setProperty("--category-color", category.color);
+    node.style.setProperty("--category-soft", category.soft);
+  }
+
+  function renderCategoryUI() {
+    const nav = document.getElementById("category-nav");
+    if (nav) {
+      const fragment = document.createDocumentFragment();
+      categories.list().forEach((category) => {
+        const link = document.createElement("a");
+        link.className = "nav-link";
+        link.href = `#/categoria/${encodeURIComponent(category.id)}`;
+        link.dataset.nav = category.id;
+        link.title = category.label;
+
+        const dot = document.createElement("span");
+        dot.className = "nav-dot";
+        dot.setAttribute("aria-hidden", "true");
+        dot.style.setProperty("--category-color", category.color);
+        link.appendChild(dot);
+
+        link.appendChild(ui.icon(category.icon));
+
+        const label = document.createElement("span");
+        label.className = "nav-link__label";
+        label.textContent = category.label;
+        link.appendChild(label);
+
+        const count = document.createElement("span");
+        count.className = "nav-count";
+        count.id = `count-${category.id}`;
+        count.textContent = "0";
+        link.appendChild(count);
+
+        fragment.appendChild(link);
+      });
+      nav.appendChild(fragment);
+    }
+
+    if (elements.filterChips) {
+      elements.filterChips.innerHTML = "";
+      const allChip = document.createElement("button");
+      allChip.type = "button";
+      allChip.className = "chip";
+      allChip.dataset.category = "";
+      allChip.textContent = "Todas";
+      elements.filterChips.appendChild(allChip);
+
+      categories.list().forEach((category) => {
+        const chip = document.createElement("button");
+        chip.type = "button";
+        chip.className = "chip";
+        chip.dataset.category = category.id;
+        chip.style.setProperty("--category-color", category.color);
+
+        const dot = document.createElement("span");
+        dot.className = "chip__dot";
+        dot.setAttribute("aria-hidden", "true");
+        chip.appendChild(dot);
+        chip.appendChild(document.createTextNode(category.label));
+
+        elements.filterChips.appendChild(chip);
+      });
+    }
+
+    const select = document.getElementById("editor-category");
+    if (select) {
+      select.innerHTML = "";
+      const placeholder = document.createElement("option");
+      placeholder.value = "";
+      placeholder.textContent = "Selecione uma categoria";
+      select.appendChild(placeholder);
+      categories.list().forEach((category) => {
+        const option = document.createElement("option");
+        option.value = category.id;
+        option.textContent = category.label;
+        select.appendChild(option);
+      });
+    }
+  }
+
   function parseHash(hash) {
     const value = String(hash || "").replace(/^#\/?/, "");
     if (!value) return { name: "list" };
@@ -92,6 +175,7 @@
 
   async function init() {
     cacheElements();
+    renderCategoryUI();
     ui.init();
     importExport.init();
     bindStaticEvents();
@@ -100,7 +184,7 @@
     const settings = NS.storage.loadSettings();
     state.sort = search.SORT_OPTIONS.has(settings.sort) ? settings.sort : "updated-desc";
     state.sidebarCollapsed = !!settings.sidebarCollapsed;
-    state.animations = settings.animations !== false;
+    state.animations = settings.animations !== false && !animations.prefersReducedMotion();
     animations.setEnabled(state.animations);
     scroll.setEnabled(state.animations);
     applySidebarState();
@@ -274,7 +358,7 @@
 
   function toggleAnimations() {
     state.animations = !state.animations;
-    animations.setEnabled(state.animations);
+    animations.setEnabled(state.animations, { explicit: true });
     scroll.setEnabled(state.animations);
     updateAnimationsToggle();
     NS.storage.saveSettings({ animations: state.animations });
@@ -328,22 +412,18 @@
   }
 
   function updateSidebarCounts() {
-      const counts = search.counts(state.procedures);
-      const all = document.getElementById("count-all");
-      const sistema = document.getElementById("count-sistema");
-      const hardware = document.getElementById("count-hardware");
-      const rede = document.getElementById("count-rede");
-      const tasy = document.getElementById("count-tasy");
-      if (all) all.textContent = String(counts.all);
-      if (sistema) sistema.textContent = String(counts.sistema);
-      if (hardware) hardware.textContent = String(counts.hardware);
-      if (rede) rede.textContent = String(counts.rede);
-      if (tasy) tasy.textContent = String(counts.tasy);
-      const total = document.getElementById("sidebar-total");
-      const totalLabel = document.getElementById("sidebar-total-label");
-      if (total) total.textContent = String(counts.all);
-      if (totalLabel) totalLabel.textContent = counts.all === 1 ? "procedimento salvo" : "procedimentos salvos";
-    }
+    const counts = search.counts(state.procedures);
+    const all = document.getElementById("count-all");
+    if (all) all.textContent = String(counts.all);
+    categories.list().forEach((category) => {
+      const count = document.getElementById(`count-${category.id}`);
+      if (count) count.textContent = String(counts[category.id] || 0);
+    });
+    const total = document.getElementById("sidebar-total");
+    const totalLabel = document.getElementById("sidebar-total-label");
+    if (total) total.textContent = String(counts.all);
+    if (totalLabel) totalLabel.textContent = counts.all === 1 ? "procedimento salvo" : "procedimentos salvos";
+  }
 
   function updateClearButton() {
     elements.listSearchClear.hidden = !state.query;
@@ -360,7 +440,10 @@
   function setActiveNav(category) {
     const target = category || "all";
     document.querySelectorAll("[data-nav]").forEach((link) => {
-      link.classList.toggle("is-active", link.dataset.nav === target);
+      const isActive = link.dataset.nav === target;
+      link.classList.toggle("is-active", isActive);
+      if (isActive) link.setAttribute("aria-current", "page");
+      else link.removeAttribute("aria-current");
     });
   }
 
@@ -484,37 +567,43 @@
   }
 
   function buildProcedureCard(procedure) {
-      const card = document.createElement("article");
-      card.className = "procedure-card";
-      card.dataset.id = procedure.id;
-      card.dataset.category = procedure.category;
-      card.tabIndex = 0;
-      card.setAttribute("role", "link");
-      card.setAttribute("aria-label", `Abrir procedimento: ${procedure.title}`);
+    const card = document.createElement("article");
+    card.className = "procedure-card";
+    card.dataset.id = procedure.id;
+    card.dataset.category = procedure.category;
+    card.tabIndex = 0;
+    card.setAttribute("role", "link");
 
-      const title = document.createElement("h2");
-      title.className = "procedure-card__title";
-      title.textContent = procedure.title;
+    const hint = document.createElement("span");
+    hint.className = "sr-only";
+    hint.textContent = "Abrir procedimento: ";
+    card.appendChild(hint);
 
-      const description = String(procedure.description || "").trim();
-      const excerpt = document.createElement("p");
-      excerpt.className = "procedure-card__excerpt";
-      excerpt.textContent = description || "Sem descrição.";
-      if (!description) excerpt.classList.add("is-empty");
+    const title = document.createElement("h2");
+    title.className = "procedure-card__title";
+    title.textContent = procedure.title;
 
-      const category = categories.get(procedure.category);
-      const badge = document.createElement("span");
-      badge.className = `category-badge category-badge--${category?.color || "accent"}`;
-      badge.appendChild(ui.icon(category?.icon || "i-info"));
-      const badgeText = document.createElement("span");
-      badgeText.textContent = category?.label || "Sem categoria";
-      badge.appendChild(badgeText);
+    const description = String(procedure.description || "").trim();
+    const excerpt = document.createElement("p");
+    excerpt.className = "procedure-card__excerpt";
+    excerpt.textContent = description || "Sem descrição.";
+    if (!description) excerpt.classList.add("is-empty");
 
-      card.appendChild(title);
-      card.appendChild(excerpt);
-      card.appendChild(badge);
-      return card;
-    }
+    const category = categories.get(procedure.category);
+    applyCategoryColors(card, category);
+    const badge = document.createElement("span");
+    badge.className = "category-badge";
+    applyCategoryColors(badge, category);
+    badge.appendChild(ui.icon(category?.icon || "i-info"));
+    const badgeText = document.createElement("span");
+    badgeText.textContent = category?.label || "Sem categoria";
+    badge.appendChild(badgeText);
+
+    card.appendChild(title);
+    card.appendChild(excerpt);
+    card.appendChild(badge);
+    return card;
+  }
 
   function openReader(id) {
     state.returnHash = state.currentRoute;
@@ -532,7 +621,8 @@
     elements.readerBadges.innerHTML = "";
     if (category) {
       const badge = document.createElement("span");
-      badge.className = `category-badge category-badge--${category.color}`;
+      badge.className = "category-badge";
+      applyCategoryColors(badge, category);
       badge.appendChild(ui.icon(category.icon));
       const text = document.createElement("span");
       text.textContent = category.label;

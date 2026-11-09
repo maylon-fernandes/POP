@@ -10,8 +10,17 @@
     return userEnabled === true || !reduceMotion.matches;
   }
 
-  function setEnabled(value) {
+  function setEnabled(value, options) {
+    const settings = options || {};
+    if (!settings.explicit && reduceMotion.matches) {
+      userEnabled = false;
+      return;
+    }
     userEnabled = value === true;
+  }
+
+  function prefersReducedMotion() {
+    return reduceMotion.matches;
   }
 
   function visible(targets) {
@@ -181,6 +190,7 @@
   NS.animations = {
     enabled,
     setEnabled,
+    prefersReducedMotion,
     initial,
     viewIn,
     listIn,

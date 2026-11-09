@@ -68,7 +68,7 @@
   <div class="app-shell" id="app">
     <aside class="sidebar" id="sidebar" aria-label="Navegação principal">
       <div class="sidebar__header">
-        <a class="brand" href="#/" aria-label="Lingo — início">
+        <a class="brand" href="#/" aria-label="Lingo — Procedimentos de TI — início">
           <span class="brand__mark"><svg class="icon" aria-hidden="true"><use href="#i-logo"></use></svg></span>
           <span class="brand__text">
             <strong>Lingo</strong>
@@ -94,31 +94,8 @@
             <span class="nav-count" id="count-all">0</span>
           </a>
           <p class="nav-section-label">Categorias</p>
-          <a class="nav-link" href="#/categoria/sistema" data-nav="sistema" title="Sistema">
-                      <span class="nav-dot nav-dot--sistema"></span>
-                      <svg class="icon" aria-hidden="true"><use href="#i-software"></use></svg>
-                      <span class="nav-link__label">Sistema</span>
-                      <span class="nav-count" id="count-sistema">0</span>
-                    </a>
-          <a class="nav-link" href="#/categoria/hardware" data-nav="hardware" title="Hardware">
-            <span class="nav-dot nav-dot--hardware"></span>
-            <svg class="icon" aria-hidden="true"><use href="#i-hardware"></use></svg>
-            <span class="nav-link__label">Hardware</span>
-            <span class="nav-count" id="count-hardware">0</span>
-          </a>
-          <a class="nav-link" href="#/categoria/rede" data-nav="rede" title="Rede">
-                      <span class="nav-dot nav-dot--rede"></span>
-                      <svg class="icon" aria-hidden="true"><use href="#i-network"></use></svg>
-                      <span class="nav-link__label">Rede</span>
-                      <span class="nav-count" id="count-rede">0</span>
-                    </a>
-                    <a class="nav-link" href="#/categoria/tasy" data-nav="tasy" title="Tasy">
-                      <span class="nav-dot nav-dot--tasy"></span>
-                      <svg class="icon" aria-hidden="true"><use href="#i-tasy"></use></svg>
-                      <span class="nav-link__label">Tasy</span>
-                      <span class="nav-count" id="count-tasy">0</span>
-                    </a>
-                  </nav>
+          <div class="nav-category-list" id="category-nav"></div>
+        </nav>
 
         <div class="sidebar__footer">
           <div class="storage-indicator" id="storage-indicator" title="Seus dados ficam neste navegador">
@@ -199,13 +176,7 @@
                 </label>
               </div>
 
-              <div class="filter-chips" id="filter-chips" role="group" aria-label="Filtrar por categoria">
-                              <button class="chip" type="button" data-category="">Todas</button>
-                              <button class="chip" type="button" data-category="sistema"><span class="chip__dot chip__dot--sistema"></span>Sistema</button>
-                              <button class="chip" type="button" data-category="hardware"><span class="chip__dot chip__dot--hardware"></span>Hardware</button>
-                              <button class="chip" type="button" data-category="rede"><span class="chip__dot chip__dot--rede"></span>Rede</button>
-                              <button class="chip" type="button" data-category="tasy"><span class="chip__dot chip__dot--tasy"></span>Tasy</button>
-                            </div>
+              <div class="filter-chips" id="filter-chips" role="group" aria-label="Filtrar por categoria"></div>
             </header>
 
             <div class="list-summary" id="list-summary" aria-live="polite"></div>
@@ -262,13 +233,7 @@
                     <div class="field">
                       <label class="field__label" for="editor-category">Categoria <span class="required">*</span></label>
                       <label class="select-field select-field--full">
-                        <select id="editor-category">
-                                                  <option value="">Selecione uma categoria</option>
-                                                  <option value="sistema">Sistema</option>
-                                                  <option value="hardware">Hardware</option>
-                                                  <option value="rede">Rede</option>
-                                                  <option value="tasy">Tasy</option>
-                                                </select>
+                        <select id="editor-category"></select>
                         <svg class="icon select-field__icon" aria-hidden="true"><use href="#i-chevron-down"></use></svg>
                       </label>
                       <p class="field-error" id="editor-category-error" hidden></p>

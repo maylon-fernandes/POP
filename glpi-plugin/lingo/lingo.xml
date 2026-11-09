@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+   <name>Lingo</name>
+   <key>lingo</key>
+   <state>stable</state>
+   <description>
+      <short>
+         <pt_BR>Central de procedimentos operacionais padrão (POPs) de TI integrada ao GLPI.</pt_BR>
+         <en>IT standard operating procedures (SOP) knowledge base integrated with GLPI.</en>
+      </short>
+      <long>
+         <pt_BR>O Lingo mantém a experiência de leitura e edição de procedimentos, com categorias, imagens, busca e exportação, armazenando todos os dados no banco do GLPI. A edição é restrita a administradores; a consulta fica disponível aos demais perfis autenticados.</pt_BR>
+         <en>Lingo keeps the procedure reading and editing experience, with categories, images, search and export, storing all data in the GLPI database. Editing is restricted to administrators; consultation is available to other authenticated profiles.</en>
+      </long>
+   </description>
+   <menu>
+      <pt_BR>Procedimentos</pt_BR>
+      <en_GB>Procedures</en_GB>
+   </menu>
+   <homepage></homepage>
+   <authors>
+      <author>Lingo</author>
+   </authors>
+   <versions>
+      <version>
+         <num>1.0.0</num>
+         <compatibility>~10.0.0</compatibility>
+      </version>
+   </versions>
+   <langs>
+      <lang>pt_BR</lang>
+      <lang>en_GB</lang>
+   </langs>
+   <license>GPL v2+</license>
+   <tags>
+      <pt_BR>
+         <tag>procedimentos</tag>
+         <tag>pop</tag>
+         <tag>documentação</tag>
+      </pt_BR>
+      <en>
+         <tag>procedures</tag>
+         <tag>sop</tag>
+         <tag>documentation</tag>
+      </en>
+   </tags>
+</root>

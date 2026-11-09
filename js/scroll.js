@@ -25,7 +25,7 @@
       wheelMultiplier: 1,
       autoRaf: true,
       autoResize: true,
-      respectReducedMotion: false,
+      respectReducedMotion: true,
       prevent: function (node) {
         return !!(node && node.closest && node.closest("textarea, [data-lenis-prevent], dialog"));
       },

@@ -5,7 +5,7 @@ Aplicação web para criar, organizar e consultar Procedimentos Operacionais Pad
 ## Recursos
 
 - Editor visual no estilo de blocos, com títulos, listas, listas de tarefas, citações, blocos de código, links, imagens e alinhamento de texto.
-- Categorias fixas: **Software**, **Hardware** e **Rede**.
+- Categorias fixas: **Sistema**, **Hardware**, **Rede** e **Tasy**, definidas em `js/categories.js`.
 - Busca sem distinção de acentos, filtro por categoria e ordenação por atualização, criação ou título.
 - Leitura formatada com marcação de tarefas persistente.
 - Salvamento automático de procedimentos existentes e rascunho local para novos procedimentos. Ao criar um novo, o editor abre em branco e oferece a restauração do rascunho anterior sob demanda.

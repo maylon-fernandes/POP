@@ -397,6 +397,20 @@
     if (initialized) return;
     initialized = true;
 
+    ["prompt-form", "image-dialog-form"].forEach((id) => {
+      const form = document.getElementById(id);
+      if (!form) return;
+      form.addEventListener("keydown", (event) => {
+        if (event.key !== "Enter" || event.isComposing) return;
+        const target = event.target;
+        if (!target || target.tagName !== "INPUT") return;
+        const primary = form.querySelector('button[type="submit"].btn--primary');
+        if (!primary) return;
+        event.preventDefault();
+        primary.click();
+      });
+    });
+
     document.querySelectorAll("[data-close-dialog]").forEach((button) => {
       button.addEventListener("click", () => closeDialog(button.getAttribute("data-close-dialog")));
     });

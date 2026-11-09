@@ -24,14 +24,6 @@
   --warning-soft: rgba(255, 193, 7, 0.14);
   --success: #20c997;
   --success-soft: rgba(32, 201, 151, 0.16);
-  --sistema: #6ea8fe;
-    --sistema-soft: rgba(110, 168, 254, 0.16);
-  --hardware: #ffda6a;
-  --hardware-soft: rgba(255, 218, 106, 0.15);
-  --rede: #20c997;
-    --rede-soft: rgba(32, 201, 151, 0.16);
-    --tasy: #d982e8;
-    --tasy-soft: rgba(217, 130, 232, 0.16);
     --sidebar-w: 272px;
   --sidebar-w-collapsed: 78px;
   --radius-xs: 6px;
@@ -381,28 +373,19 @@ fieldset {
   color: var(--accent-strong);
 }
 
+.nav-category-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
 .nav-dot {
-  display: none;
+  display: block;
   width: 6px;
   height: 6px;
   flex: 0 0 auto;
   border-radius: 999px;
-}
-
-.nav-dot--sistema {
-  background: var(--sistema);
-}
-
-.nav-dot--hardware {
-  background: var(--hardware);
-}
-
-.nav-dot--rede {
-  background: var(--rede);
-}
-
-.nav-dot--tasy {
-  background: var(--tasy);
+  background: var(--category-color, var(--accent));
 }
 
 .sidebar__footer {
@@ -1064,22 +1047,7 @@ fieldset {
   width: 6px;
   height: 6px;
   border-radius: 999px;
-}
-
-.chip__dot--sistema {
-  background: var(--sistema);
-}
-
-.chip__dot--hardware {
-  background: var(--hardware);
-}
-
-.chip__dot--rede {
-  background: var(--rede);
-}
-
-.chip__dot--tasy {
-  background: var(--tasy);
+  background: var(--category-color, var(--accent));
 }
 
 .list-summary {
@@ -1153,26 +1121,6 @@ fieldset {
   outline-offset: 2px;
 }
 
-.procedure-card[data-category="sistema"] {
-  --category-color: var(--sistema);
-  --category-soft: var(--sistema-soft);
-}
-
-.procedure-card[data-category="hardware"] {
-  --category-color: var(--hardware);
-  --category-soft: var(--hardware-soft);
-}
-
-.procedure-card[data-category="rede"] {
-  --category-color: var(--rede);
-  --category-soft: var(--rede-soft);
-}
-
-.procedure-card[data-category="tasy"] {
-  --category-color: var(--tasy);
-  --category-soft: var(--tasy-soft);
-}
-
 .category-badge {
   display: inline-flex;
   align-items: center;
@@ -1190,26 +1138,6 @@ fieldset {
 .category-badge .icon {
   width: 12px;
   height: 12px;
-}
-
-.category-badge--sistema {
-  --category-color: var(--sistema);
-  --category-soft: var(--sistema-soft);
-}
-
-.category-badge--hardware {
-  --category-color: var(--hardware);
-  --category-soft: var(--hardware-soft);
-}
-
-.category-badge--rede {
-  --category-color: var(--rede);
-  --category-soft: var(--rede-soft);
-}
-
-.category-badge--tasy {
-  --category-color: var(--tasy);
-  --category-soft: var(--tasy-soft);
 }
 
 .procedure-card .category-badge {

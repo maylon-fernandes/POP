@@ -140,6 +140,13 @@
         }
       }, { signal });
       contentEl.addEventListener("keydown", (event) => this.handleKeydown(event), { signal });
+      document.addEventListener("keydown", (event) => {
+        if (!(event.ctrlKey || event.metaKey) || event.key.toLowerCase() !== "s") return;
+        if (contentEl.contains(event.target)) return;
+        if (document.querySelector("dialog[open]")) return;
+        event.preventDefault();
+        this.saveExplicit();
+      }, { signal });
       contentEl.addEventListener("paste", (event) => this.handlePaste(event), { signal });
       contentEl.addEventListener("click", (event) => this.handleContentClick(event), { signal });
       contentEl.addEventListener("dragenter", (event) => this.handleDragEnter(event), { signal });
@@ -954,12 +961,39 @@
         this.imageDialogError.hidden = false;
         return;
       }
+
+      let imageId = null;
+      let displayUrl = url;
+      if (/^data:image\//i.test(url)) {
+        try {
+          const record = await images.addDataUrl(url, "imagem");
+          imageId = record.id;
+          displayUrl = await images.getUrl(record.id);
+          if (!displayUrl) throw new Error("Não foi possível carregar a imagem.");
+        } catch (error) {
+          this.imageDialogError.textContent = error.message || "Não foi possível armazenar a imagem.";
+          this.imageDialogError.hidden = false;
+          return;
+        }
+      }
+
       const range = this.imageDialogRange;
       this.imageDialogRange = null;
       ui.closeDialog("image-dialog");
       await utils.nextFrame();
       if (this.destroyed) return;
       this.savedRange = range;
+
+      if (imageId) {
+        this.insertHtml(
+          `<img data-image-id="${utils.escapeAttr(imageId)}" class="doc-image" src="${utils.escapeAttr(displayUrl)}" alt="Imagem"><p><br></p>`
+        );
+        this.markDirty();
+        this.scrollToLastImage();
+        ui.toast("Imagem inserida e armazenada localmente.", "success");
+        return;
+      }
+
       this.insertExternalImage(url);
     }
 
